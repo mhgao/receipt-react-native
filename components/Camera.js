@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, Text, TouchableOpacity, Alert, View } from 'react-native';
+import { TouchableOpacity, Alert, View, Text } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 import styles from '../styles/styles';
