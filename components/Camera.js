@@ -4,6 +4,7 @@ import { RNCamera } from 'react-native-camera';
 
 import styles from '../styles/styles';
 
+
 class Camera extends PureComponent {
   constructor(props) {
     super(props);
@@ -18,14 +19,30 @@ class Camera extends PureComponent {
         quality: 0.5,
         base64: true,
       };
-      
 
       try {
         const data = await this.camera.takePictureAsync(options);
-        console.log(data.uri);
-        // Alert.alert('Success', JSON.stringify(data));
+
+        const response = await fetch('http://10.0.2.2:5000/api', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: data.base64,
+        });
+
+        console.log(response);
+
+        const responseData = await response.json();
+        console.log(responseData);
+
+        // Alert.alert('Success', JSON.stringify(data.base64));
+        // Alert.alert('Success', data.base64);
+
       } catch (err) {
         Alert.alert('Error', 'Failed to take picture: ' + (err.message || err));
+        console.log(err);
         return;
       } finally {
         this.setState({takingPic: false});
