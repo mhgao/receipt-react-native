@@ -2,22 +2,24 @@ import React, { PureComponent } from 'react';
 import { View, Text,Button } from 'react-native';
 
 import styles from '../styles/styles';
+import Receipt_Instances from './Receipt_Instances';
+import data from "./data";
 
-const screens = {
-    //key: value -_>
-}
-
-export default function LandingPage(props){
+function LandingPage(props){
     const pressHandler = () =>{
         props.navigation.navigate('Snap')
     }
-        return (
-            <View>
-                <Text>gucci</Text>
-                <Button title='go to snap' onPress={pressHandler}></Button>
-            </View>
-            
-       
-        );
-
-}   
+    const receiptComponents = data.map(receipt => <Receipt_Instances key = {receipt.id} store = {receipt.store}
+    total = {receipt.total} date = {receipt.date}/>)
+    
+    return (
+        <View>
+            <Text>gucci</Text>
+            <Receipt_Instances />
+            {receiptComponents}
+            <Button title='go to snap' onPress={pressHandler}></Button>
+        </View>
+    );
+}  
+ 
+export default LandingPage;
